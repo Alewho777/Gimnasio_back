@@ -17,7 +17,7 @@ public class ScheduledTasks {
 	        this.personaRepository = personaRepository;
 	    }
 
-	    @Scheduled(cron = "0 0 0 * * ?") // Ejecuta diario a media noche
+	    @Scheduled(cron = "0 0 0 * * ?", zone = "America/Lima") // Ejecuta diario a media noche
 	    public void actualizarEstadosInscripciones() {
 	        List<Persona> personas = personaRepository.findAll();
 	        
