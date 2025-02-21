@@ -43,7 +43,6 @@ public class Persona implements Serializable{
     @Column(nullable = false)
     private int estado = 1;
 
-    @Column(nullable = false)
     private double peso;
     
     @Column(nullable= false)
