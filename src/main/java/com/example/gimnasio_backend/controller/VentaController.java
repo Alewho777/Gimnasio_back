@@ -6,7 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -85,11 +87,19 @@ public class VentaController {
     }
     
     
-    //@PostMapping
-    //@ResponseStatus(HttpStatus.CREATED)
-    //public Ventas crearVenta(@RequestBody Ventas venta) {
-      //  return this.registrarVenta(venta);
-    //}
+    // ACTUALIZAR VENTA POR ID
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateVenta(@RequestBody Ventas venta, @PathVariable Long id) {
+        Ventas updateVenta = ventaService.findById(id);
+        if (updateVenta == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Venta no encontrada");
+        }
+        updateVenta.setCantidad(venta.getCantidad());
+        updateVenta.setTotal(venta.getTotal());
+
+        ventaService.save(updateVenta);
+    }
 
     @GetMapping
     public List<Ventas> listarVentas() {
